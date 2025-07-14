@@ -1,0 +1,46 @@
+Laboratorio ELK con Docker + Simulación de Logs
+
+elk-lab/
+├── docker-compose.yml
+└── log_simulator/
+    ├── Dockerfile
+    └── generate_logs.sh
+
+
+✅ Paso 1: Crear archivo docker-compose.yml
+Guarda este contenido en un archivo llamado docker-compose.yml:
+
+✅ Paso 2: Crear carpeta log_simulator/ y el script
+Crea una carpeta llamada log_simulator/ al lado del archivo docker-compose.yml, y dentro pon un archivo llamado generate_logs.sh 
+
+✅ Paso 3: Iniciar el entorno
+docker-compose up --build
+	Esto levantará:
+	• Elasticsearch (puerto 9200)
+	• Kibana (puerto 5601)
+	• Generador de logs que inserta eventos cada 2 segundos
+
+✅ Paso 4: Ver logs en Kibana
+	1. Ve a 👉 http://localhost:5601
+	2. Dirígete a Stack Management > Index Patterns
+	3. Crea un Index Pattern llamado jboss-logs*
+	4. Selecciona @timestamp como campo de tiempo
+	5. Ve a Discover, y verás los logs simulados fluyendo en tiempo real
+
+
+#########################################################
+
+
+Detener los contenedores
+
+docker-compose down
+Esto:
+	• Detiene y elimina todos los contenedores definidos en docker-compose.yml
+	• No borra los volúmenes (en este caso no hay datos persistentes, así que no hay pérdida)
+
+✅ 2. Levantar los contenedores nuevamente
+
+docker-compose up
+O, si quieres forzar la reconstrucción de imágenes:
+
+docker-compose up --build
